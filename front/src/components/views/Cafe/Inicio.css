@@ -1,0 +1,86 @@
+.btn-uno {
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.inicio_img {
+  max-width: 200px;
+  max-height: 200px;
+  min-width: 200px;
+  min-height: 200px;
+}
+.card_c {
+  padding: 20px;
+}
+.card_t {
+  max-width: 300px;
+  max-height: 300px;
+  min-width: 300px;
+  min-height: 300px;
+}
+.div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 19.5% 19.5% 19.5% 19.5% 19.5%;
+  grid-gap: 20px 10px;
+  padding: 20px;
+  background-color: blue;
+}
+
+.grid > div {
+  background-color: white;
+}
+.titulo {
+  font: oblique bold 500% cursive;
+  text-align: center;
+  color: black;
+  background-color: white;
+}
+
+.tituloo {
+  font: oblique bold 120% cursive;
+  text-align: center;
+  color: black;
+  background-color: white;
+}
+
+.img {
+  max-width: 200px;
+  max-height: 200px;
+  min-width: 100px;
+  min-height: 100px;
+  display: block;
+  margin: auto;
+}
+.ti {
+  text-align: center;
+}
+.imag {
+  max-width: 200px;
+  max-height: 200px;
+  min-width: 200px;
+  min-height: 200px;
+  display: block;
+  margin: auto;
+}
+.image {
+  max-width: 200px;
+  max-height: 200px;
+  min-width: 180px;
+  min-height: 180px;
+  display: block;
+  margin: auto;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

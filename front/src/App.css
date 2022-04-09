@@ -1,0 +1,31 @@
+.divPadre {
+  height: 100vh;
+  position: relative;
+}
+
+.divHijo {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.todo {
+  height: 100vh;
+  margin: 0;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.spinnerReactstrap {
+  width: 100px !important;
+  height: 100px !important;
+
+  border: 10px solid currentColor !important;
+  border-right-color: transparent !important;
+}
