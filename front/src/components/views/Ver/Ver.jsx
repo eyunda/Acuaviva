@@ -27,7 +27,6 @@ const Ver = () => {
 
 	const columns = [
 		{ field: 'id', headerName: 'ID', width: 50 },
-		{ field: 'deuda_anterior', headerName: 'Deuda Anterior', width: 150 },
 		{ field: 'nombre', headerName: 'Nombre', width: 150 },
 		{ field: 'apellido', headerName: 'Apellido', width: 150 },
 		{ field: 'lectura_pasada', headerName: 'Lectura Pasada', width: 150 },

@@ -29,7 +29,6 @@ const Login = () => {
 		axios.post('http://localhost:4000/api/login', bodyLogin)
 			.then(({ data }) => {
 
-				
 					globalDispatch({
 						type: AUTH_TYPES.LOGIN_OK,
 						payload: data

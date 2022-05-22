@@ -34,10 +34,14 @@ export default function Dashboard() {
         push('/app/pqrs')
     }
 
+    const onDeuda = () => {
+        push('/app/deudas')
+    }
+
     return (
         <>
             <h1 className="titulo">Administrador</h1>
-            <div class="row row-cols-1 row-cols-md-6 g-6">
+            <div class="row row-cols-2 row-cols-md-4 g-4">
                 <div class="col">
                     <div class="card h-110">
                     <img src="img/trabajadores.jpg" class="card-img-top" alt="..." width="20px" height="150px"/>
@@ -102,6 +106,17 @@ export default function Dashboard() {
                     </div>
                     <div class="card-footer">
                         <Button fullWidth variant='contained' color='primary' className={classes.button} onClick={onPqrs}>Ingresar</Button>
+                    </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                    <img src="img/deuda.jpg" class="card-img-top" alt="..."  width="20px" height="150px"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Deudas Clientes</h5>
+                    </div>
+                    <div class="card-footer">
+                        <Button fullWidth variant='contained' color='primary' className={classes.button} onClick={onDeuda}>Ingresar</Button>
                     </div>
                     </div>
                 </div>

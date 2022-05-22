@@ -444,6 +444,60 @@ app.post('/api/ver/editar', (req, res) => {
 	connection.end()
 })
 
+// deudas de los clientes
+
+app.get('/api/deudas', (req, res) => {
+	var connection = mysql.createConnection(credentials)
+	connection.query("SELECT nombre, apellido, ((lectura_resiente-lectura_pasada)*valor) deuda, deuda_anterior, ((((lectura_resiente-lectura_pasada)*valor)-descuento)+deuda_anterior) Total FROM clientes c, recibo r, estrato e, costos_fijos co WHERE c.username = 'sofi' AND c.id_estrato=e.id AND r.id_cliente = c.id", (err, rows) => {
+		if (err) {
+			res.status(500).send(err)
+		} else {
+			res.status(200).send(rows)
+		}
+	})
+})
+
+app.post('/api/deuda/eliminar', (req, res) => {
+	const { id } = req.body
+	var connection = mysql.createConnection(credentials)
+	connection.query('DELETE FROM recibo WHERE id = ?', id, (err, result) => {
+		if (err) {
+			res.status(500).send(err)
+		} else {
+			res.status(200).send({ "status": "success", "message": "Usuario Eliminado" })
+		}
+	})
+	connection.end()
+})
+
+app.post('/api/deuda/guardar', (req, res) => {
+	const { consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente } = req.body
+	const params = [[consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente]]
+	var connection = mysql.createConnection(credentials)
+	connection.query('INSERT INTO recibo (consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente) VALUES ?', [params], (err, result) => {
+		if (err) {
+			res.status(500).send(err)
+		} else {
+			res.status(200).send({ "status": "success", "message": "Usuario creado" })
+		}
+	})
+	connection.end()
+})
+
+app.post('/api/deuda/editar', (req, res) => {
+	const { id, consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente} = req.body
+	const params = [consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente, id]
+	var connection = mysql.createConnection(credentials)
+	connection.query('UPDATE recibo set consumo = ?, deuda_anterior = ?, id_cliente = ?, lectura_pasada = ?, lectura_resiente = ? WHERE id = ?', params, (err, result) => {
+		if (err) {
+			res.status(500).send(err)
+		} else {
+			res.status(200).send({ "status": "success", "message": "USuario editado" })
+		}
+	})
+	connection.end()
+})
+
 // Upload Endpoint
 app.post('/api/upload', (req, res) => {
 	if (req.files === null) {

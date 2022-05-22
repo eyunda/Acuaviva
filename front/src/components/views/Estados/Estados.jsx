@@ -111,12 +111,12 @@ const Estados = () => {
         }
     }))
 
-    const classes = useStyles()
-    const { push } = useHistory()
+    	const classes = useStyles()
+    	const { push } = useHistory()
 
-    const onAtras = () => {
-                push('/app')
-    }
+    	const onAtras = () => {
+            push('/app')
+    	}
 
 	useEffect(init, [])
 
