@@ -37,6 +37,9 @@ export default function Dashboard() {
     const onDeuda = () => {
         push('/app/deudas')
     }
+    const onCambios = () => {
+        push('/app/cambios')
+    }
 
     return (
         <>
@@ -117,6 +120,17 @@ export default function Dashboard() {
                     </div>
                     <div class="card-footer">
                         <Button fullWidth variant='contained' color='primary' className={classes.button} onClick={onDeuda}>Ingresar</Button>
+                    </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                    <img src="img/cambio.jpg" class="card-img-top" alt="..."  width="20px" height="150px"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Estados</h5>
+                    </div>
+                    <div class="card-footer">
+                        <Button fullWidth variant='contained' color='primary' className={classes.button} onClick={onCambios}>Ingresar</Button>
                     </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './Factura.css';
 import { Paper, Table, TableContainer,TableCell, TableHead, TableRow, TableBody } from '@material-ui/core'
 import axios from 'axios'
@@ -10,16 +10,14 @@ import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router'
 import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
 import { useRef } from 'react';
+import { MainContext, APP_STATE } from '../../../Context/MainContext'
 
 const Factura = () => {
-    	const [userList, setUserList] = useState([])
+    	
+		const [user, setUser] = useState({ correo: '', name: '', cargo: '', estrato: '', Consumo: ''})
+    	
+		const { globalState} = useContext(MainContext)
 
-    	const getUsers = async () => {
-        	const { data } = await axios.get('http://localhost:4000/api/factura')
-        	setUserList(data)
-    	}
-
-    	useEffect(getUsers, [])
 	
 	const pdfExportComponent = useRef(null);
 	const contentArea = useRef(null);
@@ -64,10 +62,18 @@ const Factura = () => {
 	const classes = useStyles();
 	const { push } = useHistory()
 
-    	const onAtras = () => {
-            push('/vista')
-    	}
+    const onAtras = () => {
+        push('/vista')
+    }
 
+	const init = () => {
+		if (typeof globalState.auth.id === 'undefined') {
+			localStorage.clear()
+		} else {
+			setUser(globalState.auth)
+		}
+	}
+	useEffect(init, [])
     	return (
 		<>
 			
@@ -96,8 +102,8 @@ const Factura = () => {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{userList.map((user, index) => (
-								<StyledTableRow  key={index}>
+								
+								<StyledTableRow>
 									<TableCell></TableCell>
 									<TableCell>{user.nombre}_{user.apellido}</TableCell>
 									<TableCell>{user.edad}</TableCell>
@@ -105,7 +111,7 @@ const Factura = () => {
 									<TableCell>{user.estrato}</TableCell>
 									<TableCell>{user.descuento}</TableCell>
 								</StyledTableRow>
-								))}
+							
 							</TableBody>
 						</Table>
 						<Table>
@@ -119,15 +125,15 @@ const Factura = () => {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{userList.map((user, index) => (
-									<TableRow key={index}>
+								
+									<TableRow>
 										<TableCell>{user.costos}</TableCell>
 										<TableCell>{user.valor}</TableCell>
 										<TableCell>{user.lectura_pasada}</TableCell>
 										<TableCell>{user.lectura_resiente}</TableCell>
 										<TableCell>{user.Consumo}</TableCell>
 									</TableRow>
-								))}
+						
 							</TableBody>
 						</Table>
 						<Table>
@@ -138,22 +144,25 @@ const Factura = () => {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{userList.map((user, index) => (
-									<TableRow key={index}>
+					
+									<TableRow>
 										<TableCell>{user.deuda_anterior}</TableCell>
 										<TableCell>{user.Total}</TableCell>
 										
 									</TableRow>
-								))}
+							
 							</TableBody>
 						</Table>
-						<div className="button-area">
-							<Button primary={true} onClick={handleExportWithComponent} startIcon={<PrintIcon />}>Descargar</Button>
-							<Button href='https://www.eaav.gov.co/Tramites/Paginas/Pago-de-Factura-de-Servicio-Acueducto-y-Alcantarillado.aspx' startIcon={<PaidIcon />}>Pago seguro</Button>
+						<div>
+							
 						</div>
 					</TableContainer>
 				</div>
       		</PDFExport>
+			<div className="button-area">
+				<Button primary={true} onClick={handleExportWithComponent} startIcon={<PrintIcon />}>Descargar</Button>
+				<Button href='https://www.eaav.gov.co/Tramites/Paginas/Pago-de-Factura-de-Servicio-Acueducto-y-Alcantarillado.aspx' startIcon={<PaidIcon />}>Pago seguro</Button>
+			</div>
 		
 		</>
 

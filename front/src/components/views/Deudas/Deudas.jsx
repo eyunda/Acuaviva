@@ -87,6 +87,7 @@ const Deudas = () => {
 									<StyledTableCell>Deuda Resiente</StyledTableCell>
 									<StyledTableCell>Deuda Anterior</StyledTableCell>
 									<StyledTableCell>Total</StyledTableCell>
+									<StyledTableCell>Estado</StyledTableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody>
@@ -98,6 +99,7 @@ const Deudas = () => {
 									<TableCell>{user.deuda}</TableCell>
 									<TableCell>{user.deuda_anterior}</TableCell>
 									<TableCell>{user.Total}</TableCell>
+									<TableCell>{user.estado}</TableCell>
 								</StyledTableRow>
 								))}
 							</TableBody>

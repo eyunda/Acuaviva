@@ -31,6 +31,7 @@ const Ver = () => {
 		{ field: 'apellido', headerName: 'Apellido', width: 150 },
 		{ field: 'lectura_pasada', headerName: 'Lectura Pasada', width: 150 },
 		{ field: 'lectura_resiente', headerName: 'Lectura Resiente', width: 150 },
+		
 		{
 			field: '',
 			headerName: 'Acciones',

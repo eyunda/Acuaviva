@@ -22,7 +22,7 @@ const Ver = lazy(() => import('../components/views/Ver'))
 const Imagen = lazy(() => import('../components/views/Imagen'))
 const Estados = lazy(() => import('../components/views/Estados'))
 const Deudas = lazy(() => import('../components/views/Deudas'))
-
+const Cambios = lazy(() => import('../components/views/Cambios'))
 
 const routes = [
     {
@@ -106,6 +106,12 @@ const routes = [
                 path: "/app/deudas",
                 exact: true,
                 render: props => <RouteController component={Deudas} {...props} />
+
+            },
+            {
+                path: "/app/cambios",
+                exact: true,
+                render: props => <RouteController component={Cambios} {...props} />
 
             },
             

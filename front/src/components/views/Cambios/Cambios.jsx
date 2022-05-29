@@ -9,7 +9,7 @@ import { useHistory } from 'react-router'
 import { makeStyles } from '@material-ui/core/styles'
 
 
-const Pqrs = () => {
+const Cambios = () => {
 	const initialState = {
 		avatar: 'https://i.imgur.com/gh3fPj5.png',
 		pqrs: "",
@@ -22,15 +22,16 @@ const Pqrs = () => {
 	const [mensaje, setMensaje] = useState({ ident: null, message: null, type: null })
 
 	const init = async () => {
-		const { data } = await ApiRequest().get('/pqrs')
+		const { data } = await ApiRequest().get('/cambio')
 		setUsuariosList(data)
 	}
 
 	const columns = [
 		{ field: 'id', headerName: 'ID', width: 120 },
-		{ field: 'pqrs', headerName: 'Pqrs', width: 220 },
+		{ field: 'nombre', headerName: 'Nombre', width: 220 },
+		{ field: 'apellido', headerName: 'Apellido', width: 220 },
 		{ field: 'estado', headerName: 'Estado', width: 220 },
-        { field: 'respuesta', headerName: 'Respuesta', width: 220 },
+        
 		{
 			field: '',
 			headerName: 'Acciones',
@@ -44,31 +45,11 @@ const Pqrs = () => {
 					}}>
 						<EditOutlined />
 					</IconButton>
-					<IconButton size='small' onClick={() => onDelete(params.id)}>
-						<DeleteOutline />
-					</IconButton>
 				</Stack>
 			)
 		}
 	]
 
-	const onDelete = async (id) => {
-		try {
-			const { data } = await ApiRequest().post('/pqrs/eliminar', { id: id })
-			setMensaje({
-				ident: new Date().getTime(),
-				message: data.message,
-				type: 'success'
-			})
-			init()
-		} catch ({ response }) {
-			setMensaje({
-				ident: new Date().getTime(),
-				message: response.data.sqlMessage,
-				type: 'error'
-			})
-		}
-	}
 
 	const handleDialog = () => {
 		setOpenDialog(prev => !prev)
@@ -105,7 +86,7 @@ const Pqrs = () => {
 
 	const onEdit = async () => {
 		try {
-			const { data } = await ApiRequest().post('/pqrs/editar', body)
+			const { data } = await ApiRequest().post('/estado/editar', body)
 			handleDialog()
 			setBody(initialState)
 			setMensaje({
@@ -130,12 +111,12 @@ const Pqrs = () => {
         }
     }))
 
-    const classes = useStyles()
-    const { push } = useHistory()
+    	const classes = useStyles()
+    	const { push } = useHistory()
 
-    const onAtras = () => {
-                push('/vista')
-    }
+    	const onAtras = () => {
+            push('/app')
+    	}
 
 	useEffect(init, [])
 
@@ -151,44 +132,30 @@ const Pqrs = () => {
 						<Grid item xs={12} sm={12}>
 							<TextField
 								margin='normal'
-								name='pqrs'
-								value={body.pqrs}
+								name='respuesta'
+								value={body.respuesta}
 								onChange={onChange}
 								variant='outlined'
 								size='small'
 								color='primary'
 								fullWidth
-								label='Pqrs'
+								label='Respuesta'
 							/>
 						</Grid>
 						<Grid item xs={12} sm={12}>
 							<TextField
 								margin='normal'
 								name='id_estado'
-								value={body.id_estado = 1}
+								value={body.id_estado}
 								onChange={onChange}
 								variant='outlined'
 								size='small'
 								color='primary'
 								fullWidth
 								label='Estado'
-                                type="hidden"
 							/>
 						</Grid>
-                        <Grid item xs={12} sm={12}>
-							<TextField
-								margin='normal'
-								name='id_cliente'
-								value={body.id_cliente = 1}
-								onChange={onChange}
-								variant='outlined'
-								size='small'
-								color='primary'
-								fullWidth
-								label='cliente'
-                                type="hidden"
-							/>
-						</Grid>
+                        
 					</Grid>
 				</DialogContent>
 				<DialogActions>
@@ -203,9 +170,6 @@ const Pqrs = () => {
 						<Typography variant="h5">Pqrs</Typography>
 					</Box>
 					<Grid container spacing={2}>
-						<Grid item xs={12} sm={4}>
-							<Button onClick={handleDialog} startIcon={<AddOutlined />} variant='contained' color='primary'>Nuevo</Button>
-						</Grid>
 						<Grid item xs={12} sm={8} />
 						<Grid item xs={12} sm={12}>
 							<CommonTable data={usuariosList} columns={columns} />
@@ -217,4 +181,4 @@ const Pqrs = () => {
 	)
 }
 
-export default Pqrs
+export default Cambios
