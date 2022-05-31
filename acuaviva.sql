@@ -149,7 +149,7 @@ CREATE TABLE `pqrs` (
 /*Data for the table `pqrs` */
 
 insert  into `pqrs`(`id`,`pqrs`,`id_cliente`,`id_estado`,`respuesta`) values 
-(4,'me quejo porque el personal de servicio me atendió',1,2,'ya se ha atendido su solicitud'),
+(4,'me quejo porque el personal de servicio me atendió',1,1,''),
 (5,'me quejo porque el profe me pide mucha cosa',1,2,'sacamos 5');
 
 /*Table structure for table `recibo` */

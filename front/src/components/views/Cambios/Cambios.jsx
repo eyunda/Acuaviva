@@ -27,9 +27,10 @@ const Cambios = () => {
 	}
 
 	const columns = [
-		{ field: 'id', headerName: 'ID', width: 120 },
+		{ field: 'id_cliente', headerName: 'ID', width: 120 },
 		{ field: 'nombre', headerName: 'Nombre', width: 220 },
 		{ field: 'apellido', headerName: 'Apellido', width: 220 },
+		{field: 'Saldo', hearName: 'Deuda', width: 220},
 		{ field: 'estado', headerName: 'Estado', width: 220 },
         
 		{
@@ -86,7 +87,7 @@ const Cambios = () => {
 
 	const onEdit = async () => {
 		try {
-			const { data } = await ApiRequest().post('/estado/editar', body)
+			const { data } = await ApiRequest().post('/cambio/editar', body)
 			handleDialog()
 			setBody(initialState)
 			setMensaje({
@@ -125,21 +126,21 @@ const Cambios = () => {
             <Button fullWidth variant='contained' color='secondary' className={classes.button} onClick={onAtras}>Regresar</Button>
 			<Dialog maxWidth='xs' open={openDialog} onClose={handleDialog}>
 				<DialogTitle>
-					{isEdit ? 'Editar Pqrs' : 'Crear Pqrs'}
+					{isEdit ? 'Editar' : ''}
 				</DialogTitle>
 				<DialogContent>
 					<Grid container spacing={2}>
-						<Grid item xs={12} sm={12}>
+					<Grid item xs={12} sm={12}>
 							<TextField
 								margin='normal'
-								name='respuesta'
-								value={body.respuesta}
+								name='id_cliente'
+								value={body.id_cliente}
 								onChange={onChange}
 								variant='outlined'
 								size='small'
 								color='primary'
 								fullWidth
-								label='Respuesta'
+								label='id_cliente'
 							/>
 						</Grid>
 						<Grid item xs={12} sm={12}>
@@ -163,11 +164,11 @@ const Cambios = () => {
 					<Button variant='contained' color='primary' onClick={isEdit ? () => onEdit() : () => onSubmit()}>guardar</Button>
 				</DialogActions>
 			</Dialog>
-			<Page title="Acuaviva | Pqrs">
+			<Page title="Acuaviva | Cambios">
 				<ToastAutoHide message={mensaje} />
 				<Container maxWidth='lg'>
 					<Box sx={{ pb: 5 }}>
-						<Typography variant="h5">Pqrs</Typography>
+						<Typography variant="h5">Cambio de Estados</Typography>
 					</Box>
 					<Grid container spacing={2}>
 						<Grid item xs={12} sm={8} />

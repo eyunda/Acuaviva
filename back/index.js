@@ -86,7 +86,7 @@ app.post('/api/cliente', (req, res) => {
     const { username, password, rol, estrato } = req.body
     const values = [username, password, rol, estrato]
     var connection = mysql.createConnection(credentials)
-    connection.query("SELECT lectura_resiente-lectura_pasada Consumo, ((((lectura_resiente-lectura_pasada)*valor)-descuento)+deuda_anterior) Total,c.*, rl.*, r.*, e.*, co.*  FROM clientes c, rol rl, recibo r, estrato e, costos_fijos co WHERE c.username = ? AND c.password = ? AND c.id_rol = rl.id AND c.id_rol='2' AND c.id_estrato=e.id AND r.id_cliente = c.id", values, (err, result) => {
+    connection.query("SELECT lectura_resiente-lectura_pasada Consumo, ((((lectura_resiente-lectura_pasada)*valor)-descuento)+deuda_anterior) Total,c.*, rl.*, r.*, e.*, co.*, es.*  FROM clientes c, rol rl, recibo r, estrato e, costos_fijos co, estado es WHERE c.username = ? AND c.password = ? AND c.id_rol = rl.id AND c.id_rol='2' AND c.id_estrato=e.id AND r.id_cliente = c.id AND r.id_estado = es.id", values, (err, result) => {
         if (err) {
             res.status(500).send(err)
         } else {
@@ -109,6 +109,7 @@ app.post('/api/cliente', (req, res) => {
                     "lectura_pasada": result[0].lectura_pasada,
                     "Consumo": result[0].Consumo,
                     "Total": result[0].Total,
+                    "estado": result[0].estado,
                     "isAuth": true
                 })
             } else {
@@ -514,7 +515,7 @@ app.post('/api/deuda/editar', (req, res) => {
 
 app.get('/api/cambio', (req, res) => {
     var connection = mysql.createConnection(credentials)
-    connection.query("SELECT nombre, apellido, ((lectura_resiente-lectura_pasada)*valor) deuda, deuda_anterior, ((((lectura_resiente-lectura_pasada)*valor)-descuento)+deuda_anterior) Total, es.estado FROM clientes c, recibo r, estrato e, costos_fijos co, estado es WHERE  c.id_estrato=e.id AND r.id_cliente = c.id AND r.id_estado = es.id", (err, rows) => {
+    connection.query("SELECT ((((lectura_resiente-lectura_pasada)*valor)-descuento)+deuda_anterior) Saldo, c.*, es.*, r.* FROM clientes c, recibo r, estrato e, costos_fijos co, estado es WHERE c.id_estrato=e.id AND r.id_cliente = c.id AND r.id_estado = es.id", (err, rows) => {
         if (err) {
             res.status(500).send(err)
         } else {
@@ -523,40 +524,11 @@ app.get('/api/cambio', (req, res) => {
     })
 })
 
-app.post('/api/cambio/eliminar', (req, res) => {
-    const { id } = req.body
-    var connection = mysql.createConnection(credentials)
-    connection.query('DELETE FROM recibo WHERE id = ?', id, (err, result) => {
-        if (err) {
-            res.status(500).send(err)
-        } else {
-            res.status(200).send({ "status": "success", "message": "Usuario Eliminado" })
-        }
-    })
-    connection.end()
-})
-
-app.post('/api/cambio/guardar', (req, res) => {
-    const { consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente } = req.body
-    const params = [
-        [consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente]
-    ]
-    var connection = mysql.createConnection(credentials)
-    connection.query('INSERT INTO recibo (consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente) VALUES ?', [params], (err, result) => {
-        if (err) {
-            res.status(500).send(err)
-        } else {
-            res.status(200).send({ "status": "success", "message": "Usuario creado" })
-        }
-    })
-    connection.end()
-})
-
 app.post('/api/cambio/editar', (req, res) => {
-    const { id, consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente } = req.body
-    const params = [consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente, id]
+    const { id, id_estado, } = req.body
+    const params = [id_estado, id]
     var connection = mysql.createConnection(credentials)
-    connection.query('UPDATE recibo set consumo = ?, deuda_anterior = ?, id_cliente = ?, lectura_pasada = ?, lectura_resiente = ? WHERE id = ?', params, (err, result) => {
+    connection.query('UPDATE recibo set id_estado = ? WHERE id = ?', params, (err, result) => {
         if (err) {
             res.status(500).send(err)
         } else {

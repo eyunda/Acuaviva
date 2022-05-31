@@ -87,6 +87,12 @@ const Factura = () => {
 									<TableCell>
 										<h1>Facturacion</h1>
 									</TableCell>
+									<TableCell>
+										<h1>Estado</h1>
+									</TableCell>
+									<TableCell>
+										<h2>{user.estado}</h2>
+									</TableCell>
 								</TableRow>
 							</TableHead>
 						</Table>
@@ -162,6 +168,7 @@ const Factura = () => {
 			<div className="button-area">
 				<Button primary={true} onClick={handleExportWithComponent} startIcon={<PrintIcon />}>Descargar</Button>
 				<Button href='https://www.eaav.gov.co/Tramites/Paginas/Pago-de-Factura-de-Servicio-Acueducto-y-Alcantarillado.aspx' startIcon={<PaidIcon />}>Pago seguro</Button>
+				
 			</div>
 		
 		</>
