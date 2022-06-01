@@ -24,7 +24,9 @@ CREATE TABLE `clientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
-  `edad` int(11) NOT NULL,
+  `documento` int(11) NOT NULL,
+  `predio` varchar(50) NOT NULL,
+  `tipo_vivienda` varchar(50) NOT NULL,
   `telefono` varchar(11) NOT NULL,
   `correo` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
@@ -34,14 +36,15 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`id`),
   KEY `fk_idroless` (`id_rol`),
   CONSTRAINT `fk_idroless` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `clientes` */
 
-insert  into `clientes`(`id`,`nombre`,`apellido`,`edad`,`telefono`,`correo`,`username`,`password`,`id_rol`,`id_estrato`) values 
-(1,'Sofia','Sanchez',43,'3124563781','sofi@gmail.com','sofia','12345',2,1),
-(3,'daniela','herrera',90,'3108882266','jhon1100p@gmail.com','daniela','12345',2,1),
-(4,'sofia','cabrera',40,'3213211211','cabrera@gmail.com','sofi','12345',2,2);
+insert  into `clientes`(`id`,`nombre`,`apellido`,`documento`,`predio`,`tipo_vivienda`,`telefono`,`correo`,`username`,`password`,`id_rol`,`id_estrato`) values 
+(1,'Sofia','Sanchez',89092134,'20 mt2','urbano','3124563781','sofi@gmail.com','sofia','12345',2,1),
+(3,'daniela','herrera',107240720,'30 mt2','urbano','3108882266','jhon1100p@gmail.com','daniela','12345',2,1),
+(4,'sofia','cabrera',109829349,'50 mt2','rural','3213211211','cabrera@gmail.com','sofi','12345',2,2),
+(5,'jhon','herrera',1076309202,'30 mt2','urbano','3108882266','jhon1100p@gmail.com','herrera','12345',2,2);
 
 /*Table structure for table `costos_fijos` */
 

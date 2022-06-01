@@ -88,11 +88,13 @@ const Factura = () => {
 										<h1>Facturacion</h1>
 									</TableCell>
 									<TableCell>
-										<h1>Estado</h1>
+										<h1>zona: {user.tipo_vivienda}</h1>
 									</TableCell>
 									<TableCell>
-										<h2>{user.estado}</h2>
+										<h1>Estado: {user.estado}</h1>
 									</TableCell>
+									
+									
 								</TableRow>
 							</TableHead>
 						</Table>
@@ -101,7 +103,7 @@ const Factura = () => {
 								<TableRow>
 									<StyledTableCell><img src={Logo} width='100%' height='100%'></img></StyledTableCell>
 									<StyledTableCell>Nombre Y Apellido</StyledTableCell>
-									<StyledTableCell>edad</StyledTableCell>
+									<StyledTableCell>Documento</StyledTableCell>
 									<StyledTableCell>Telefono</StyledTableCell>
 									<StyledTableCell>Estrato</StyledTableCell>
 									<StyledTableCell>Descuento Por Estrato</StyledTableCell>
@@ -112,7 +114,7 @@ const Factura = () => {
 								<StyledTableRow>
 									<TableCell></TableCell>
 									<TableCell>{user.nombre}_{user.apellido}</TableCell>
-									<TableCell>{user.edad}</TableCell>
+									<TableCell>{user.documento}</TableCell>
 									<TableCell>{user.telefono}</TableCell>
 									<TableCell>{user.estrato}</TableCell>
 									<TableCell>{user.descuento}</TableCell>

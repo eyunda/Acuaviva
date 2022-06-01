@@ -33,14 +33,17 @@ const Listaclientes = () => {
 
 	const columns = [
 		{ field: 'id', headerName: 'ID', width: 50 },
-		{ field: 'nombre', headerName: 'Nombre', width: 150 },
-        { field: 'apellido', headerName: 'Apellido', width: 150 },
-        { field: 'edad', headerName: 'Edad', width: 90 },
+		{ field: 'nombre', headerName: 'Nombre', width: 90 },
+        { field: 'apellido', headerName: 'Apellido', width: 90 },
+        { field: 'documento', headerName: 'Documento', width: 90 },
+		{ field: 'predio', headerName: 'Ext.predio', width: 90 },
+		{ field: 'tipo_vivienda', headerName: 'Ubicacion', width: 90 },
         { field: 'telefono', headerName: 'Telefono', width: 120 },
         { field: 'correo', headerName: 'Correo', width: 150 },
 		{ field: 'username', headerName: 'Username', width: 90 },
         { field: 'password', headerName: 'Password', width: 90 },
         { field: 'rol', headerName: 'Rol', width: 90 },
+		{ field: 'estrato', headerName: 'Estrato', width: 90 },
 		{
 			field: '',
 			headerName: 'Acciones',
@@ -188,14 +191,40 @@ const Listaclientes = () => {
 						<Grid item xs={12} sm={12}>
 							<TextField
 								margin='normal'
-								name='edad'
-								value={body.edad}
+								name='documento'
+								value={body.documento}
 								onChange={onChange}
 								variant='outlined'
 								size='small'
 								color='primary'
 								fullWidth
-								label='Edad'
+								label='Documento'
+							/>
+						</Grid>
+						<Grid item xs={12} sm={12}>
+							<TextField
+								margin='normal'
+								name='predio'
+								value={body.predio}
+								onChange={onChange}
+								variant='outlined'
+								size='small'
+								color='primary'
+								fullWidth
+								label='Ext.predio'
+							/>
+						</Grid>
+						<Grid item xs={12} sm={12}>
+							<TextField
+								margin='normal'
+								name='tipo_vivienda'
+								value={body.tipo_vivienda}
+								onChange={onChange}
+								variant='outlined'
+								size='small'
+								color='primary'
+								fullWidth
+								label='Ubicacion'
 							/>
 						</Grid>
                         <Grid item xs={12} sm={12}>
@@ -253,14 +282,27 @@ const Listaclientes = () => {
                         <Grid item xs={12} sm={12}>
 							<TextField
 								margin='normal'
-								name='rol'
-								value={body.rol}
+								name='id_rol'
+								value={body.id_rol}
 								onChange={onChange}
 								variant='outlined'
 								size='small'
 								color='primary'
 								fullWidth
-								label='Rol'
+								label='id_Rol'
+							/>
+						</Grid>
+						<Grid item xs={12} sm={12}>
+							<TextField
+								margin='normal'
+								name='id_estrato'
+								value={body.id_estrato}
+								onChange={onChange}
+								variant='outlined'
+								size='small'
+								color='primary'
+								fullWidth
+								label='id_estrato'
 							/>
 						</Grid>
 					</Grid>

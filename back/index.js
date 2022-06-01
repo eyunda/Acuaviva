@@ -97,7 +97,7 @@ app.post('/api/cliente', (req, res) => {
                     "rol": result[0].rol,
                     "nombre": result[0].nombre,
                     "apellido": result[0].apellido,
-                    "edad": result[0].edad,
+                    "documento": result[0].documento,
                     "telefono": result[0].telefono,
                     "correo": result[0].correo,
                     "estrato": result[0].estrato,
@@ -110,6 +110,7 @@ app.post('/api/cliente', (req, res) => {
                     "Consumo": result[0].Consumo,
                     "Total": result[0].Total,
                     "estado": result[0].estado,
+                    "tipo_vivienda": result[0].tipo_vivienda,
                     "isAuth": true
                 })
             } else {
@@ -187,7 +188,7 @@ app.post('/api/editar', (req, res) => {
 
 app.get('/api/listacli', (req, res) => {
     var connection = mysql.createConnection(credentials)
-    connection.query('SELECT c.id, nombre, apellido, edad, telefono, correo, username, password, rol FROM clientes c, rol r WHERE c.id_rol = r.id', (err, rows) => {
+    connection.query("SELECT c.*, r.rol, e.estrato FROM clientes c, rol r, estrato e WHERE c.id_rol = r.id AND c.id_estrato=e.id", (err, rows) => {
         if (err) {
             res.status(500).send(err)
         } else {
@@ -210,12 +211,12 @@ app.post('/api/listacli/eliminar', (req, res) => {
 })
 
 app.post('/api/listacli/guardar', (req, res) => {
-    const { nombre, apellido, edad, telefono, correo, username, password, rol } = req.body
+    const { nombre, apellido, documento, predio, tipo_vivienda, telefono, correo, username, password, id_rol, id_estrato } = req.body
     const params = [
-        [nombre, apellido, edad, telefono, correo, username, password, rol]
+        [nombre, apellido, documento, predio, tipo_vivienda, telefono, correo, username, password, id_rol, id_estrato]
     ]
     var connection = mysql.createConnection(credentials)
-    connection.query('INSERT INTO clientes (nombre, apellido, edad, telefono, correo, username, password, rol) VALUES ?', [params], (err, result) => {
+    connection.query('INSERT INTO clientes (nombre, apellido, documento, predio, tipo_vivienda, telefono, correo, username, password, id_rol, id_estrato) VALUES ?', [params], (err, result) => {
         if (err) {
             res.status(500).send(err)
         } else {
@@ -226,10 +227,10 @@ app.post('/api/listacli/guardar', (req, res) => {
 })
 
 app.post('/api/listacli/editar', (req, res) => {
-    const { id, nombre, apellido, edad, telefono, correo, username, password, rol } = req.body
-    const params = [nombre, apellido, edad, telefono, correo, username, password, rol, id]
+    const { id, nombre, apellido, documento, predio, tipo_vivienda, telefono, correo, username, password, id_rol, id_estrato } = req.body
+    const params = [nombre, apellido, documento, predio, tipo_vivienda, telefono, correo, username, password, id_rol, id_estrato, id]
     var connection = mysql.createConnection(credentials)
-    connection.query('UPDATE clientes set nombre = ?, apellido = ?, edad = ?, telefono = ?, correo = ?, username = ?, password = ?, rol = ? WHERE id = ?', params, (err, result) => {
+    connection.query('UPDATE clientes set nombre = ?, apellido = ?, documento = ?, predio = ?, tipo_vivienda = ?, telefono = ?, correo = ?, username = ?, password = ?, id_rol = ?, id_estrato = ? WHERE id = ?', params, (err, result) => {
         if (err) {
             res.status(500).send(err)
         } else {
