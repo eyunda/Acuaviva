@@ -41,7 +41,7 @@ const Principal = () => {
                         <div class="card text-white bg-primary mb-2">
                             <img src="img/admin.jpg" width="225px" height="200px"/>
                         <div class="card-body">
-                            <h5 class="card-title">Admin</h5>
+                            <h5 class="card-title">Administrador</h5>
                         </div>
                             <div class="card-footer">
                                 <small class="text-muted"><Button fullWidth variant='contained' color='secondary' className={classes.button} onClick={onAdmin}>Ingresar</Button></small>
@@ -66,7 +66,7 @@ const Principal = () => {
                         <div class="card text-white bg-primary mb-2">
                             <img src="img/usuario.jpg" width="225px" height="200px"/>
                         <div class="card-body">
-                            <h5 class="card-title">Usuarios</h5>
+                            <h5 class="card-title">Clientes</h5>
                         </div>
                             <div class="card-footer">
                                 <small class="text-muted"><Button fullWidth variant='contained' color='secondary' className={classes.button} onClick={onCliente}>Ingresar</Button></small>

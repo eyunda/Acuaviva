@@ -1,5 +1,5 @@
 /*
-SQLyog Trial v13.1.8 (64 bit)
+SQLyog Community v13.1.7 (64 bit)
 MySQL - 10.4.24-MariaDB : Database - acuaviva
 *********************************************************************
 */
@@ -36,7 +36,7 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`id`),
   KEY `fk_idroless` (`id_rol`),
   CONSTRAINT `fk_idroless` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `clientes` */
 
@@ -44,7 +44,7 @@ insert  into `clientes`(`id`,`nombre`,`apellido`,`documento`,`predio`,`tipo_vivi
 (1,'Sofia','Sanchez',89092134,'20 mt2','urbano','3124563781','sofi@gmail.com','sofia','12345',2,1),
 (3,'daniela','herrera',107240720,'30 mt2','urbano','3108882266','jhon1100p@gmail.com','daniela','12345',2,1),
 (4,'sofia','cabrera',109829349,'50 mt2','rural','3213211211','cabrera@gmail.com','sofi','12345',2,2),
-(5,'jhon','herrera',1076309202,'30 mt2','urbano','3108882266','jhon1100p@gmail.com','herrera','12345',2,2);
+(6,'yunda','sanchez',1233132,'321','rural','132321321','daeqeqwew','yundaa','12345',2,1);
 
 /*Table structure for table `costos_fijos` */
 
@@ -161,24 +161,25 @@ DROP TABLE IF EXISTS `recibo`;
 
 CREATE TABLE `recibo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `consumo` int(11) NOT NULL,
-  `deuda_anterior` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
   `lectura_pasada` int(11) NOT NULL,
   `lectura_resiente` int(11) NOT NULL,
   `id_estado` int(11) NOT NULL,
+  `deuda_anterior` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_idcliente` (`id_cliente`),
   KEY `fk_idestado` (`id_estado`),
   CONSTRAINT `fk_idcliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
   CONSTRAINT `fk_idestados` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `recibo` */
 
-insert  into `recibo`(`id`,`consumo`,`deuda_anterior`,`id_cliente`,`lectura_pasada`,`lectura_resiente`,`id_estado`) values 
-(3,0,0,3,1997,2020,3),
-(4,0,0,4,40000,50000,4);
+insert  into `recibo`(`id`,`id_cliente`,`lectura_pasada`,`lectura_resiente`,`id_estado`,`deuda_anterior`) values 
+(3,3,1997,2020,3,40000),
+(4,4,40000,50000,4,0),
+(11,6,1997,4020,4,0),
+(12,1,1998,2029,4,0);
 
 /*Table structure for table `rol` */
 

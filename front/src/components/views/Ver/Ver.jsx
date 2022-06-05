@@ -153,19 +153,6 @@ const Ver = () => {
 						<Grid item xs={9} sm={9}>
 							<TextField
 								margin='normal'
-								name='deuda_anterior'
-								value={body.deuda_anterior}
-								onChange={onChange}
-								variant='outlined'
-								size='small'
-								color='primary'
-								fullWidth
-								label='Deuda Anterior'
-							/>
-						</Grid>
-						<Grid item xs={9} sm={9}>
-							<TextField
-								margin='normal'
 								name='id_cliente'
 								value={body.id_cliente}
 								onChange={onChange}
@@ -200,6 +187,20 @@ const Ver = () => {
 								color='primary'
 								fullWidth
 								label='Lectura Resiente'
+							/>
+						</Grid>
+						<Grid item xs={9} sm={9}>
+							<TextField
+								margin='normal'
+								name='id_estado'
+								value={body.id_estado=4}
+								onChange={onChange}
+								variant='outlined'
+								size='small'
+								color='primary'
+								fullWidth
+								label='Estado'
+                                type="hidden"
 							/>
 						</Grid>
 					</Grid>

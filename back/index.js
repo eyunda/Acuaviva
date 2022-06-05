@@ -404,7 +404,7 @@ app.post('/api/costos/editar', (req, res) => {
 
 app.get('/api/ver', (req, res) => {
     var connection = mysql.createConnection(credentials)
-    connection.query('SELECT * FROM recibo r, clientes c, estrato e WHERE r.id_cliente = c.id AND c.id_estrato = e.id', (err, rows) => {
+    connection.query('SELECT c.id, nombre, apellido, lectura_pasada, lectura_resiente FROM recibo r, clientes c, estrato e, estado es WHERE r.id_cliente = c.id AND c.id_estrato = e.id AND r.id_estado = es.id', (err, rows) => {
         if (err) {
             res.status(500).send(err)
         } else {
@@ -427,12 +427,12 @@ app.post('/api/ver/eliminar', (req, res) => {
 })
 
 app.post('/api/ver/guardar', (req, res) => {
-    const { consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente } = req.body
+    const { id_cliente, lectura_pasada, lectura_resiente, id_estado } = req.body
     const params = [
-        [consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente]
+        [id_cliente, lectura_pasada, lectura_resiente, id_estado]
     ]
     var connection = mysql.createConnection(credentials)
-    connection.query('INSERT INTO recibo (consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente) VALUES ?', [params], (err, result) => {
+    connection.query('INSERT INTO recibo (id_cliente, lectura_pasada, lectura_resiente, id_estado) VALUES ?', [params], (err, result) => {
         if (err) {
             res.status(500).send(err)
         } else {
@@ -443,10 +443,10 @@ app.post('/api/ver/guardar', (req, res) => {
 })
 
 app.post('/api/ver/editar', (req, res) => {
-    const { id, consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente } = req.body
-    const params = [consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente, id]
+    const { id, id_cliente, lectura_pasada, lectura_resiente, id_estado } = req.body
+    const params = [id_cliente, lectura_pasada, lectura_resiente, id_estado, id]
     var connection = mysql.createConnection(credentials)
-    connection.query('UPDATE recibo set consumo = ?, deuda_anterior = ?, id_cliente = ?, lectura_pasada = ?, lectura_resiente = ? WHERE id = ?', params, (err, result) => {
+    connection.query('UPDATE recibo set id_cliente = ?, lectura_pasada = ?, lectura_resiente = ?, id_estado = ? WHERE id = ?', params, (err, result) => {
         if (err) {
             res.status(500).send(err)
         } else {
@@ -460,7 +460,7 @@ app.post('/api/ver/editar', (req, res) => {
 
 app.get('/api/deudas', (req, res) => {
     var connection = mysql.createConnection(credentials)
-    connection.query("SELECT nombre, apellido, ((lectura_resiente-lectura_pasada)*valor) deuda, deuda_anterior, ((((lectura_resiente-lectura_pasada)*valor)-descuento)+deuda_anterior) Total, es.estado FROM clientes c, recibo r, estrato e, costos_fijos co, estado es WHERE  c.id_estrato=e.id AND r.id_cliente = c.id AND r.id_estado = es.id", (err, rows) => {
+    connection.query("SELECT r.id, id_cliente, nombre, apellido, ((lectura_resiente-lectura_pasada)*valor) deuda, deuda_anterior, ((((lectura_resiente-lectura_pasada)*valor)-descuento)+deuda_anterior) Total, estado FROM clientes c, recibo r, estrato e, costos_fijos co, estado es WHERE  c.id_estrato=e.id AND r.id_cliente = c.id AND r.id_estado = es.id", (err, rows) => {
         if (err) {
             res.status(500).send(err)
         } else {
@@ -483,7 +483,7 @@ app.post('/api/deuda/eliminar', (req, res) => {
 })
 
 app.post('/api/deuda/guardar', (req, res) => {
-    const { consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente } = req.body
+    const { id_cliente, deuda_anterior } = req.body
     const params = [
         [consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente]
     ]
@@ -499,10 +499,10 @@ app.post('/api/deuda/guardar', (req, res) => {
 })
 
 app.post('/api/deuda/editar', (req, res) => {
-    const { id, consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente } = req.body
-    const params = [consumo, deuda_anterior, id_cliente, lectura_pasada, lectura_resiente, id]
+    const { id, id_cliente, deuda_anterior } = req.body
+    const params = [id_cliente, deuda_anterior, id]
     var connection = mysql.createConnection(credentials)
-    connection.query('UPDATE recibo set consumo = ?, deuda_anterior = ?, id_cliente = ?, lectura_pasada = ?, lectura_resiente = ? WHERE id = ?', params, (err, result) => {
+    connection.query('UPDATE recibo set id_cliente = ?, deuda_anterior = ? WHERE id = ?', params, (err, result) => {
         if (err) {
             res.status(500).send(err)
         } else {
